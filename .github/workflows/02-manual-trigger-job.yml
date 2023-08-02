@@ -26,7 +26,8 @@ jobs:
     - name: Create a job
       run: |
         # replace compute name variable
+        cd src
         export computeName=${{ vars.computeClusterName }}
-        cat src/job.yml | envsubst '${computeName}' | tee job-updated.yml
+        cat job.yml | envsubst '${computeName}' | tee job-updated.yml
         # create a job
         az ml job create --file job-updated.yml $workspace
