@@ -15,5 +15,5 @@ jobs:
       uses: azure/login@v1
       with:
         creds: ${{secrets.AZURE_CREDENTIALS}}
-
-
+    - name: Create data asset
+      run: az ml data create --name diabetes-dev-folder --version 1 --path ./experimentation/data -w mlw-ml-${{ vars.RANDOM_PET_SUFFIX }} -g rg-ml-${{ vars.RANDOM_PET_SUFFIX }}
