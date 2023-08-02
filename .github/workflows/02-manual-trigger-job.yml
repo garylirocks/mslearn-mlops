@@ -3,6 +3,10 @@ name: Manually trigger an Azure Machine Learning job
 on:
   workflow_dispatch:
 
+# use vars in env
+env:
+  workspace: -w mlw-ml-${{ vars.RANDOM_PET_SUFFIX }} -g rg-ml-${{ vars.RANDOM_PET_SUFFIX }}
+
 jobs:
   train:
     runs-on: ubuntu-latest
@@ -15,8 +19,10 @@ jobs:
       uses: azure/login@v1
       with:
         creds: ${{secrets.AZURE_CREDENTIALS}}
-    - name: Create data asset
-      run: az ml data create --name diabetes-dev-folder --version 1 --path ./experimentation/data -w mlw-ml-${{ vars.RANDOM_PET_SUFFIX }} -g rg-ml-${{ vars.RANDOM_PET_SUFFIX }}
+    - name: Create data asset if not exists
+      run: |
+        echo $workspace
+        az ml data show --name diabetes-dev-folder -v 1 $workspace 2> /dev/null | az ml data create --name diabetes-dev-folder --version 1 --path ./experimentation/data $workspace
     - name: Create a job
       run: |
         # replace compute name variable
