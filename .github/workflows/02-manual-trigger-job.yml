@@ -17,3 +17,10 @@ jobs:
         creds: ${{secrets.AZURE_CREDENTIALS}}
     - name: Create data asset
       run: az ml data create --name diabetes-dev-folder --version 1 --path ./experimentation/data -w mlw-ml-${{ vars.RANDOM_PET_SUFFIX }} -g rg-ml-${{ vars.RANDOM_PET_SUFFIX }}
+    - name: Create a job
+      run: |
+        # replace compute name variable
+        export computeName=${{ vars.computeClusterName }}
+        cat src/job.yml | envsubst | tee job-updated.yml
+        # create a job
+        az ml job create --file job-udpated.yml -w mlw-ml-${{ vars.RANDOM_PET_SUFFIX }} -g rg-ml-${{ vars.RANDOM_PET_SUFFIX }}
