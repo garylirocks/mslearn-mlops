@@ -1,0 +1,17 @@
+name: Manually trigger an Azure Machine Learning job
+
+on:
+  pull_request:
+    branches:
+      - main
+  push:
+    branches:
+      - main
+
+jobs:
+  demo:
+    runs-on: ubuntu-20.04
+    steps:
+      - name: Placeholder
+        run: |
+          echo "Will add code checks here in next challenge"
