@@ -24,7 +24,7 @@ jobs:
     - name: Create data asset if not exists
       run: |
         echo $workspace
-        az ml data show --name ${{var.DATASET_NAME}} -v 1 $workspace 2> /dev/null || az ml data create --name ${{var.DATASET_NAME}} --version 1 --path ./${{var.DATASET_SRC_FOLDER}}/data $workspace
+        az ml data show --name ${{vars.DATASET_NAME}} -v 1 $workspace 2> /dev/null || az ml data create --name ${{vars.DATASET_NAME}} --version 1 --path ./${{vars.DATASET_SRC_FOLDER}}/data $workspace
     - name: Create a job
       run: |
         # replace compute name variable
@@ -50,7 +50,7 @@ jobs:
     - name: Create data asset if not exists
       run: |
         echo $workspace
-        az ml data show --name ${{var.DATASET_NAME}} -v 1 $workspace 2> /dev/null || az ml data create --name ${{var.DATASET_NAME}} --version 1 --path ./${{var.DATASET_SRC_FOLDER}}/data $workspace
+        az ml data show --name ${{vars.DATASET_NAME}} -v 1 $workspace 2> /dev/null || az ml data create --name ${{vars.DATASET_NAME}} --version 1 --path ./${{vars.DATASET_SRC_FOLDER}}/data $workspace
     - name: Create a job
       run: |
         # replace compute name variable
